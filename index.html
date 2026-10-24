@@ -88,3 +88,53 @@
   @media (max-width:820px){ header{padding:13px 16px;} .logo{font-size:21px; letter-spacing:2px;} .tabs{padding:0 16px;} .tab{padding:10px 16px; font-size:10.5px;} .hero{padding:40px 20px 26px;} .cart-bar{ flex-direction:column; align-items:stretch; gap:12px; padding:14px 16px; } .cart-summary{justify-content:space-between; width:100%;} .cart-summary .total{font-size:26px;} .cart-actions{width:100%;} .cart-actions button{flex:1; justify-content:center; padding:13px 14px; font-size:10.5px;} body{padding-bottom:230px;} #toast-container{top:auto; bottom:240px; right:12px; left:12px;} .toast{max-width:100%; font-size:12.5px;} }
 </style>
 </head>
+<body>
+  <div class="sticky-top">
+    <header>
+      <div class="logo">SAPORI<small>PERUANO</small></div>
+      <div class="header-info">
+        <span class="item location">📍 Miraflores, Lima</span>
+        <span class="item time">🕐 Hoy 12:30 pm</span>
+        <span class="table-badge">MESA 12</span>
+      </div>
+      <div class="cart-icon" onclick="showCartInfo()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        <span class="cart-count" id="cartCount">0</span>
+      </div>
+    </header>
+    <div class="tabs-wrap">
+      <div class="tabs" id="tabs">
+        <button class="tab active" data-tab="DESTACADOS">DESTACADOS</button>
+        <button class="tab" data-tab="CEVICHES">CEVICHES</button>
+        <button class="tab" data-tab="PLATOS DE FONDO">PLATOS DE FONDO</button>
+        <button class="tab" data-tab="PARRILLAS &amp; ANTICUCHOS">PARRILLAS &amp; ANTICUCHOS</button>
+        <button class="tab" data-tab="FUSIÓN &amp; SALTEADOS">FUSIÓN &amp; SALTEADOS</button>
+      </div>
+    </div>
+  </div>
+  <section class="hero">
+    <div class="eyebrow">Cocina Peruana Contemporánea</div>
+    <h1>Sabores que<br>cuentan historias</h1>
+    <div class="divider"></div>
+    <p>Una experiencia gastronómica que celebra lo mejor del Perú con técnica contemporánea. Ingredientes de altura, mar y amazonía.</p>
+  </section>
+  <main><div class="grid" id="grid"></div></main>
+  <footer><div class="logo-f">SAPORI PERUANO</div><div>© 2025 · Miraflores, Lima · Todos los derechos reservados</div></footer>
+  <div class="cart-bar">
+    <div class="cart-summary">
+      <div><div class="label">Tu pedido</div><div class="items" id="cartItems">0 platos</div></div>
+      <div class="total" id="cartTotal">S/ 0.00</div>
+    </div>
+    <div class="cart-actions">
+      <button class="btn-outline" onclick="openQR()">📱 ESCANEA Y ORDENA DESDE TU MESA</button>
+      <button class="btn-gold" onclick="sendWhatsApp()">💬 ENVIAR PEDIDO POR WHATSAPP</button>
+    </div>
+  </div>
+  <div class="modal-overlay" id="qrModal" onclick="if(event.target===this)closeQR()">
+    <div class="modal">
+      <h3>Escanea y ordena</h3><p>Apunta la cámara de tu celular al código QR para abrir el menú digital directamente en tu mesa.</p>
+      <div class="qr-wrap"><img id="qrImg" src="" alt="Código QR SAPORI"></div><br>
+      <button class="close-btn" onclick="closeQR()">CERRAR</button>
+    </div>
+  </div>
+  <div id="toast-container"></div>

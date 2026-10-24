@@ -1,20 +1,10 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SAPORI PERUANO — Cocina Peruana Contemporánea</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,600&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-<script>
-  window.imgFallback = function(el){
-    el.onerror = null;
-    var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#231a08"/><stop offset="1" stop-color="#080808"/></linearGradient></defs><rect fill="url(#g)" width="800" height="600"/><text x="400" y="300" font-family="Georgia,serif" font-size="40" fill="#D4AF37" text-anchor="middle" opacity="0.9" letter-spacing="8">SAPORI</text><text x="400" y="342" font-family="Georgia,serif" font-size="13" fill="#D4AF37" text-anchor="middle" opacity="0.5" letter-spacing="10">PERUANO</text></svg>';
-    el.src = 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
-  };
-</script>
 <style>
   :root{ --bg:#080808; --gold:#D4AF37; --gold-light:#F4E4A6; --gold-dark:#A8842A; --text:#EDEDED; --muted:#9a9a9a; --line:rgba(212,175,55,0.18); }
   *{margin:0;padding:0;box-sizing:border-box;}
@@ -98,83 +88,3 @@
   @media (max-width:820px){ header{padding:13px 16px;} .logo{font-size:21px; letter-spacing:2px;} .tabs{padding:0 16px;} .tab{padding:10px 16px; font-size:10.5px;} .hero{padding:40px 20px 26px;} .cart-bar{ flex-direction:column; align-items:stretch; gap:12px; padding:14px 16px; } .cart-summary{justify-content:space-between; width:100%;} .cart-summary .total{font-size:26px;} .cart-actions{width:100%;} .cart-actions button{flex:1; justify-content:center; padding:13px 14px; font-size:10.5px;} body{padding-bottom:230px;} #toast-container{top:auto; bottom:240px; right:12px; left:12px;} .toast{max-width:100%; font-size:12.5px;} }
 </style>
 </head>
-<body>
-  <div class="sticky-top">
-    <header>
-      <div class="logo">SAPORI<small>PERUANO</small></div>
-      <div class="header-info">
-        <span class="item location">📍 Miraflores, Lima</span>
-        <span class="item time">🕐 Hoy 12:30 pm</span>
-        <span class="table-badge">MESA 12</span>
-      </div>
-      <div class="cart-icon" onclick="showCartInfo()">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-        <span class="cart-count" id="cartCount">0</span>
-      </div>
-    </header>
-    <div class="tabs-wrap">
-      <div class="tabs" id="tabs">
-        <button class="tab active" data-tab="DESTACADOS">DESTACADOS</button>
-        <button class="tab" data-tab="CEVICHES">CEVICHES</button>
-        <button class="tab" data-tab="PLATOS DE FONDO">PLATOS DE FONDO</button>
-        <button class="tab" data-tab="PARRILLAS &amp; ANTICUCHOS">PARRILLAS &amp; ANTICUCHOS</button>
-        <button class="tab" data-tab="FUSIÓN &amp; SALTEADOS">FUSIÓN &amp; SALTEADOS</button>
-      </div>
-    </div>
-  </div>
-  <section class="hero">
-    <div class="eyebrow">Cocina Peruana Contemporánea</div>
-    <h1>Sabores que<br>cuentan historias</h1>
-    <div class="divider"></div>
-    <p>Una experiencia gastronómica que celebra lo mejor del Perú con técnica contemporánea. Ingredientes de altura, mar y amazonía.</p>
-  </section>
-  <main><div class="grid" id="grid"></div></main>
-  <footer><div class="logo-f">SAPORI PERUANO</div><div>© 2025 · Miraflores, Lima · Todos los derechos reservados</div></footer>
-  <div class="cart-bar">
-    <div class="cart-summary">
-      <div><div class="label">Tu pedido</div><div class="items" id="cartItems">0 platos</div></div>
-      <div class="total" id="cartTotal">S/ 0.00</div>
-    </div>
-    <div class="cart-actions">
-      <button class="btn-outline" onclick="openQR()">📱 ESCANEA Y ORDENA DESDE TU MESA</button>
-      <button class="btn-gold" onclick="sendWhatsApp()">💬 ENVIAR PEDIDO POR WHATSAPP</button>
-    </div>
-  </div>
-  <div class="modal-overlay" id="qrModal" onclick="if(event.target===this)closeQR()">
-    <div class="modal">
-      <h3>Escanea y ordena</h3><p>Apunta la cámara de tu celular al código QR para abrir el menú digital directamente en tu mesa.</p>
-      <div class="qr-wrap"><img id="qrImg" src="" alt="Código QR SAPORI"></div><br>
-      <button class="close-btn" onclick="closeQR()">CERRAR</button>
-    </div>
-  </div>
-  <div id="toast-container"></div>
-<script>
-  const WA_PHONE = '51999999999';
-  const dishes = [
-    { id: 1, name: 'Ceviche Clásico', price: 42, category: 'CEVICHES', badge: 'BESTSELLER', desc: 'Pesca del día en leche de tigre, ají limo, camote glaseado y choclo desgranado.', img: 'https://images.unsplash.com/photo-1625943553852-781c6dd46faa?auto=format&fit=crop&w=800&q=80' },
-    { id: 2, name: 'Lomo Saltado Premium', price: 48, category: 'FUSIÓN & SALTEADOS', badge: 'MÁS PEDIDO', desc: 'Lomo fino flambeado al wok, papas nativas crocantes y arroz con choclo.', img: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80' },
-    { id: 3, name: 'Anticuchos de Corazón', price: 36, category: 'PARRILLAS & ANTICUCHOS', badge: 'A LA PARRILLA', desc: 'Corazón de res marinado en ají panca, papas doradas y crema de rocoto.', img: 'https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?auto=format&fit=crop&w=800&q=80' },
-    { id: 4, name: 'Causa Limeña de Pollo', price: 32, category: 'PLATOS DE FONDO', badge: 'BESTSELLER', desc: 'Papa amarilla prensada, pollo deshilachado, mayonesa de ají amarillo y palta.', img: 'https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&w=800&q=80' },
-    { id: 5, name: 'Chaufa de Mariscos', price: 46, category: 'FUSIÓN & SALTEADOS', badge: 'NUEVO', badgeType: 'new', desc: 'Arroz al wok con langostinos, calamar, conchas y toque de sillao y ajonjolí.', img: 'https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=800&q=80' },
-    { id: 6, name: 'Pulpo a la Parrilla', price: 52, category: 'PARRILLAS & ANTICUCHOS', badge: 'PREMIUM', badgeType: 'premium', desc: 'Pulpo braseado al carbón, puré de papa nativa, aceite de oliva y limón.', img: 'https://images.unsplash.com/photo-1559847844-5315695dadae?auto=format&fit=crop&w=800&q=80' },
-    { id: 7, name: 'Ceviche de Conchas Negras', price: 55, category: 'CEVICHES', badge: 'NUEVO', badgeType: 'new', desc: 'Conchas negras de Tumbes, limón, ají limo y camote glaseado. Picante fresco.', img: 'https://images.unsplash.com/photo-1611599537845-1c7aca0091c0?auto=format&fit=crop&w=800&q=80' },
-    { id: 8, name: 'Ají de Gallina', price: 38, category: 'PLATOS DE FONDO', badge: 'BESTSELLER', desc: 'Pechuga deshilachada en crema de ají amarillo, papas, aceituna y arroz.', img: 'https://images.unsplash.com/photo-1574484284002-952d92456975?auto=format&fit=crop&w=800&q=80' },
-    { id: 9, name: 'Tacu Tacu con Seco', price: 45, category: 'PLATOS DE FONDO', badge: 'MÁS PEDIDO', desc: 'Tacu tacu de frejoles, seco de res al cilantro, chicha de jora y salsa criolla.', img: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80' },
-    { id: 10, name: 'Entraña Angus 300gr', price: 68, category: 'PARRILLAS & ANTICUCHOS', badge: 'PREMIUM', badgeType: 'premium', desc: 'Entraña angus a la parrilla, chimichurri de huacatay y papas rústicas.', img: 'https://images.unsplash.com/photo-1558030006-450675393462?auto=format&fit=crop&w=800&q=80' },
-    { id: 11, name: 'Tiradito de Pulpo al Olivo', price: 48, category: 'CEVICHES', badge: 'PREMIUM', badgeType: 'premium', desc: 'Láminas de pulpo en crema de aceituna, limón y ají amarillo. Fusión nikkei.', img: 'https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?auto=format&fit=crop&w=800&q=80' },
-    { id: 12, name: 'Arroz con Pato', price: 44, category: 'PLATOS DE FONDO', badge: 'BESTSELLER', desc: 'Arroz al culantro con pato confitado, cerveza negra y chicha de jora.', img: 'https://images.unsplash.com/photo-1516684732162-798a0062be99?auto=format&fit=crop&w=800&q=80' }
-  ];
-  const cart = {}; let currentTab = 'DESTACADOS';
-  function renderDishes() {
-    const grid = document.getElementById('grid');
-    const list = currentTab === 'DESTACADOS' ? dishes : dishes.filter(d => d.category === currentTab);
-    grid.innerHTML = list.map((d, i) => `
-      <article class="card" style="animation-delay:${i * 0.06}s">
-        <div class="card-img">
-          <span class="badge ${d.badgeType || ''}">${d.badge}</span>
-          <img src="${d.img}" alt="${d.name}" loading="lazy" onerror="imgFallback(this)">
-        </div>
-        <div class="card-body">
-          <h3 class="card-name">${d.name}</h3>
-          <p class="card-desc">${d.desc}</p>
-          <div clas
